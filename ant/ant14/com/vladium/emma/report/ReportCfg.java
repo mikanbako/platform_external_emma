@@ -169,6 +169,11 @@ class ReportCfg implements IReportProperties
             super (task, settings);
         }
         
+        public void setSourceEncoding (final String encoding)
+        {
+            m_settings.setProperty (m_prefix.concat (SOURCE_ENCODING), encoding);
+        }
+        
         
         static final String TYPE = "html";
         

@@ -73,6 +73,18 @@ abstract class ReportProperties implements IAppErrorCodes
         {
             return m_outFile;
         }
+        
+        public void setSourceEncoding (final String sourceEncoding)
+        {
+            if ($assert.ENABLED) $assert.ASSERT (sourceEncoding != null, "null input: sourceEncoding");
+            
+            m_sourceEncoding = sourceEncoding;
+        }
+        
+        public String getSourceEncoding ()
+        {
+            return m_sourceEncoding;
+        }
 
         public void setUnitsType (final int unitsType)
         {
@@ -164,6 +176,7 @@ abstract class ReportProperties implements IAppErrorCodes
             {
                 $assert.ASSERT (m_outEncoding != null, "m_outEncoding not set");
                 $assert.ASSERT (m_outDir != null || m_outFile != null, "either m_outDir or m_outFile must be set");
+                $assert.ASSERT (m_sourceEncoding != null, "m_sourceEncoding not set");
                 $assert.ASSERT (m_columnOrder != null, "m_columnOrder not set");
                 $assert.ASSERT (m_sortOrder != null, "m_sortOrder not set");
                 $assert.ASSERT (m_metrics != null, "m_metrics not set");
@@ -174,6 +187,8 @@ abstract class ReportProperties implements IAppErrorCodes
         private String m_outEncoding;
         private File m_outDir;
         private File m_outFile;
+        
+        private String m_sourceEncoding;
         
         private int m_unitsType;
         private int m_viewType;
@@ -269,6 +284,11 @@ abstract class ReportProperties implements IAppErrorCodes
             {
                 result.setOutDir (new File (outDirName));
             }
+        }
+        
+        {
+            // Set encoding from properties or platform default encoding.
+            result.setSourceEncoding (getReportProperty (properties, type, IReportProperties.SOURCE_ENCODING, false, System.getProperty ("file.encoding", "UTF-8")));
         }
 
         {

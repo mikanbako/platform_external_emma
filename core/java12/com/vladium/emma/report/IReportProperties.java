@@ -27,6 +27,9 @@ interface IReportProperties
     String OUT_FILE         = "out.file";
 
     // parameter:
+    String SOURCE_ENCODING  = "source.encoding";
+
+    // parameter:
     String UNITS_TYPE       = "units";
     // values:
     String COUNT_UNITS      = "count";
